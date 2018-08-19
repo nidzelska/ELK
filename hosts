@@ -1,0 +1,2 @@
+[elk]
+logger-ng	ansible_host=server_ip

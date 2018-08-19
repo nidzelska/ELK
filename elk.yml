@@ -1,0 +1,14 @@
+---
+#
+# Playbook to install the ELK stack
+#
+- hosts: logger-ng
+  become: yes
+  roles:
+   - java 
+   - elasticsearch
+   - kibana
+   - nginx
+   - logstash
+   - crontab
+

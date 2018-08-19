@@ -1,0 +1,40 @@
+output {
+    elasticsearch {
+    hosts => ["localhost:9200"]
+    index => "syslog%{+YYYY.MM.dd}"
+    template_name => "syslog*"
+    template_overwrite => true
+  }
+}
+
+# Save logs to .log files 
+output {
+if [group] == "Access Switch" {
+file {
+        path => "/var/log/logstash/Access_Switch/access%{+YYYY.MM.dd}.log"
+} }
+else if [group] == "L3 Switch" {
+file {
+        path => "/var/log/logstash/L3_Switch/l3_sw%{+YYYY.MM.dd}.log"
+} }
+else if [group] == "DC L3 Switch" {
+file {
+        path => "/var/log/logstash/DC_L3_Switch/dc_l3_sw%{+YYYY.MM.dd}.log"
+} }
+else if [group] == "Core Router" {
+file {
+        path => "/var/log/logstash/Core_Router/core_router%{+YYYY.MM.dd}.log"
+} }
+else if [group] == "Core Switch" {
+file {
+        path => "/var/log/logstash/Core_Switch/core_switch%{+YYYY.MM.dd}.log"
+} }
+else if [group] == "UPS" {
+file {
+        path => "/var/log/logstash/Ups/ups%{+YYYY.MM.dd}.log"
+} }
+else {
+file {
+        path => "/var/log/logstash/Other_Log/other%{+YYYY.MM.dd}.log"
+} }
+}

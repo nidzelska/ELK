@@ -1,0 +1,61 @@
+---
+# tasks file for crontab
+- name: Add files to /root
+  copy:
+    src: "files/{{ item }}"
+    dest: "/root/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - archive_logs.sh
+    - curator.yml
+    - del_old_elastic_logs.sh
+    - delete_indices.yml
+    - delete_old_logs.sh
+    - remove.sh
+  
+- name: Cron job to remove old elasticsearch indexes
+  cron:
+    name: cleanup-elasticsearch-indexes
+    weekday: 3,6
+    minute: "0" 
+    hour: "0"
+    job: /root/remove.sh
+    state: present
+    user: root
+
+- name: Cron job to archivate logs
+  cron:
+    name: archivate-logs
+    minute: "0"
+    hour: "2"
+    day: 1,15
+    job: /root/archive_logs.sh
+    state: present
+    user: root
+
+- name: Cron job to delete old elastic logs
+  cron:
+    name: del_old_elastic_logs
+    minute: "0"
+    hour: "0"
+    day: "1"
+    job: /root/del_old_elastic_logs.sh
+    state: present
+    user: root
+
+- name: Cron job to delete old logs
+  cron:
+    name: delete_old_logs
+    minute: "0"
+    hour: "0"
+    day: "1"
+    job: /root/delete_old_logs.sh
+    state: present
+    user: root
+
+
+
+
+    

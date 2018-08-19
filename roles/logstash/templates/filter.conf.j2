@@ -1,0 +1,45 @@
+filter{
+translate {
+      field => "host"
+      destination => "hostname"
+      dictionary_path => '/etc/logstash/conf.d/ip_hostname.yml'
+    }
+}
+
+filter{
+translate {
+      field => "host"
+      destination => "hostname"
+      dictionary_path => '/etc/logstash/conf.d/ip_hostname.yml'
+    }
+}
+
+filter{
+translate {
+      field => "host"
+      destination => "group"
+      dictionary_path => '/etc/logstash/conf.d/ip_group.yml'
+    }
+}
+filter{
+translate {
+      field => "host"
+      destination => "model"
+      dictionary_path => '/etc/logstash/conf.d/ip_model.yml'
+    }
+}
+filter{
+translate {
+      field => "host"
+      destination => "vendor"
+      dictionary_path => '/etc/logstash/conf.d/ip_vendor.yml'
+   }
+}
+filter{
+translate {
+      field => "host"
+      destination => "mac"
+      dictionary_path => '/etc/logstash/conf.d/ip_mac.yml'
+    }
+}
+

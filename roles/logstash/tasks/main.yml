@@ -1,0 +1,57 @@
+# Allow logstash listens custom port
+- script: ./logstash.sh
+
+- name: Install logstash from a .deb package
+  apt:
+    deb: https://artifacts.elastic.co/downloads/logstash/logstash-6.3.1.deb
+
+- name: Start logstash
+  service:
+    name: logstash
+    state: started
+    enabled: yes
+
+- name: Configure Input file
+  template:
+   src=input.conf.j2
+   dest=/etc/logstash/conf.d/input.conf
+   owner=root
+   group=root
+   mode=0644
+
+- name: Configure Filter file
+  template:
+   src=filter.conf.j2
+   dest=/etc/logstash/conf.d/filter.conf
+   owner=root
+   group=root
+   mode=0644
+
+- name: Configure Output file
+  template:
+   src=output.conf.j2
+   dest=/etc/logstash/conf.d/output.conf
+   owner=root
+   group=root
+   mode=0644
+
+- name: Add files to filters
+  copy:
+    src: "files/{{ item }}"
+    dest: "/etc/logstash/conf.d/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - ip_group.yml
+    - ip_mac.yml
+    - ip_model.yml
+    - ip_vendor.yml
+    - ip_hostname.yml
+  notify: restart logstash
+
+
+
+
+
+

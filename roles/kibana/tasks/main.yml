@@ -1,0 +1,15 @@
+- name: Install kibana from a .deb package 
+  apt:
+    deb: https://artifacts.elastic.co/downloads/kibana/kibana-6.3.1-amd64.deb
+
+- name: Updating the config file to restrict outside access
+  lineinfile:
+   destfile: /etc/kibana/kibana.yml
+   regexp: 'server.host:'
+   line: 'server.host: localhost'
+
+- name: Start kibana
+  service:
+    name: kibana
+    state: started
+    enabled: yes

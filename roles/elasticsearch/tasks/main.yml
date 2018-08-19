@@ -1,0 +1,21 @@
+# Install Elasticsearch
+- name: Install elastic from a .deb package
+  apt:
+    deb: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.3.1.deb
+# Start Elasticsearch
+- name: Start elastic
+  service:
+    name: elasticsearch
+    state: started
+    enabled: yes
+# Update Elasticsearch config file to only allow localhost connections
+- name: Updating the config file to restrict outside access
+  lineinfile:
+    path: /etc/elasticsearch/elasticsearch.yml
+    regexp: 'network.host:'
+    line: 'network.host: localhost'
+# Restart Elasticsearch
+- name: Restarting Elasticsearch
+  service:
+    name: elasticsearch
+    state: restarted
