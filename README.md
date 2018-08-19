@@ -10,5 +10,5 @@ Versions:
 
 ## USAGE 
 
-ansible-playbook -i hosts elk.yml --ask-pass
+ansible-playbook -i hosts elk.yml --ask-pass;  
 variable "server_ip" is ip-address of server that is going to run the ELK stack
