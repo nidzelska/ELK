@@ -1,12 +1,12 @@
-CRONTAB
+## CRONTAB
 MAIN TASK: Deleting old logs and Elastic indeces.
 
 All scripts are in files folder
 
-CURATOR
+## CURATOR 
 Elasticsearch Curator helps you manage Elasticsearch indices. It is already installed in version 6.x. In Crontab role we are using Curator(in remove.sh) to delete Elastic indices older than 3 days to save more storage.
 
-CRONTAB -E
+## CRONTAB -E
 0 0 * * 3,6 /root/remove.sh
 
 0 2 1,15 * * /root/archive_logs.sh
